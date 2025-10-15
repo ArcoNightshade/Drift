@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% --- Fancier Packages ---
+\usepackage{xcolor}
+\definecolor{DeepVoid}{HTML}{2A3B4A} % Using a dark blue from your palette
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+
+% Customize Section Headings
+\titleformat{\section}[block]{\centering\huge\bfseries\color{DeepVoid}\tcbline}{}{1em}{}
+\titleformat{\subsection}[runin]{\large\bfseries\color{SlateGray}}{}{0pt}{}
+\titleformat{\subsubsection}[hang]{\bfseries\color{DeepVoid}}{}{1em}{}
+\titlespacing*{\section}{0pt}{2ex}{1ex}
+\titlespacing*{\subsection}{0pt}{1.5ex}{1ex}
+\titlespacing*{\subsubsection}{0pt}{1ex}{0.5ex}
+
+\tcbuselibrary{skins}
+
+% Define a custom environment for equations to give them a colored background
+\tcbset{
+    enhanced,
+    colback=DeepVoid!5!white, % Light colored background
+    colframe=DeepVoid!60!black, % Dark colored frame
+    boxrule=0.5pt,
+    arc=3pt,
+    left=5pt,
+    right=5pt,
+    top=5pt,
+    bottom=5pt,
+}
+
+\newenvironment{mathbox}[1][\unskip]{
+    \begin{tcolorbox}
+    \textbf{#1}
+}{
+    \end{tcolorbox}
+}
+% --- End Fancier Packages ---
+
+\title{\color{DeepVoid}\textbf{Hollow Orbit: Survival Mechanics}}
+\author{\large Mathematical Core Documentation}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty} % Suppresses page number on the first page
+
+\section*{Orbital Decay and System Mechanics}
+
+The core survival gameplay of \textbf{Hollow Orbit} is driven by a set of simplified, deterministic equations that model the gradual, inevitable decay of the orbital habitats.
+
+\subsection{The Core Decay Metric: Orbital Integrity ($I$)}\hspace{0.5em}
+
+The habitat's stability is tracked by the Orbital Integrity ($I$). If $I \le 0$, the orbit fails. The change in Integrity over time ($\frac{dI}{dt}$) is the sum of various decay rates:
+
+\begin{mathbox}
+$$
+\frac{dI}{dt} = - (R_{\text{Base}} + R_{\text{Drag}} + R_{\text{Instability}})
+$$
+\end{mathbox}
+
+\begin{itemize}
+    \item $I$: \textbf{Orbital Integrity} (0--100). The primary survival metric.
+    \item $R_{\text{Base}}$: \textbf{Inherent Decay Rate} (constant set per orbit).
+    \item $R_{\text{Drag}}$: \textbf{Atmospheric Drag Rate} (variable, influenced by hull health).
+    \item $R_{\text{Instability}}$: \textbf{System Instability Rate} (variable, influenced by broken components).
+\end{itemize}
+
+\vspace{1em}
+\subsection{Variable Decay Rates (Player Agency)}\hspace{0.5em}
+
+\subsubsection{Atmospheric Drag ($R_{\text{Drag}}$)}
+Drag increases non-linearly as the \textbf{Hull System Integrity ($H_{\text{System}}$)} drops below a threshold (e.g., 50), simulating a descent into denser atmosphere.
+
+\begin{mathbox}
+$$
+\text{If } H_{\text{System}} \le 50: \quad R_{\text{Drag}} = \alpha \cdot \left(1 - \frac{H_{\text{System}}}{100}\right)^2
+$$
+\end{mathbox}
+
+\begin{itemize}
+    \item $H_{\text{System}}$: Hull System Integrity (0--100).
+    \item $\alpha$: Drag Constant (A difficulty scaling factor).
+\end{itemize}
+
+\subsubsection{System Instability ($R_{\text{Instability}}$)}
+Instability is a direct penalty based on the failure of critical internal systems, represented by the sum of penalties from failed components.
+
+\begin{mathbox}
+$$
+R_{\text{Instability}} = \sum_{n=1}^N W_n \cdot B_n
+$$
+\end{mathbox}
+
+\begin{itemize}
+    \item $N$: Total number of critical components.
+    \item $W_n$: Component Weight/Criticality (fixed value for component $n$).
+    \item $B_n$: Broken State Multiplier (binary: $B_n=1$ if Component Integrity $\le 0$; $B_n=0$ otherwise).
+\end{itemize}
+
+\vspace{1em}
+\subsection{Player Actions and Resource Consumption}\hspace{0.5em}
+
+\subsubsection{Repair Action (Increasing Component Integrity)}
+The repair action increases a specific component's integrity ($\Delta H_{\text{System}}$) by consuming both Power ($P$) and Resources ($R_{es}$).
+
+\begin{mathbox}
+$$
+\Delta H_{\text{System}} = \frac{\beta \cdot P_{\text{Consumed}} \cdot R_{\text{es}_{\text{Consumed}}}}{\text{Max } H_{\text{System}}}
+$$
+\end{mathbox}
+
+\begin{itemize}
+    \item $\beta$: Repair Efficiency constant.
+    \item $P_{\text{Consumed}}$, $R_{\text{es}_{\text{Consumed}}}$: Consumed amounts of Power and Resources per tick.
+\end{itemize}
+
+\subsubsection{Orbit Transfer Difficulty Progression}
+The difficulty increases with each new habitat, reinforcing the narrative of inevitable decay. The new orbit's inherent decay rate ($\hat{R}_{\text{Base}}$) is guaranteed to be worse.
+
+\begin{mathbox}
+$$
+\hat{R}_{\text{Base}} = R_{\text{Base}_{\text{Previous}}} + \gamma
+$$
+\end{mathbox}
+
+\begin{itemize}
+    \item $\gamma$: Decay Escalation Constant (A fixed positive value for difficulty increase).
+\end{itemize}
+
+\end{document}
