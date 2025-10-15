@@ -1,3 +1,3 @@
 fn main() {
-    println!("Hello, world!");
+    println!("PLACEHOLDER FOR ACTUAL GAME N STUFF!");
 }

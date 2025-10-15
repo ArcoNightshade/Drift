@@ -1,4 +1,4 @@
-# Hollow Orbit Color Palette [64 colors]
+# Drift Color Palette [64 colors]
 Credits: [archimedes-64](https://lospec.com/palette-list/archimedes-64)
 
 ### Neutrals & Grays (Base Tones)

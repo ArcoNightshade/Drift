@@ -1,4 +1,4 @@
-# Hollow Orbit — Development Roadmap
+# Drift — Development Roadmap
 
 ## 1. Core Concept Recap
 
@@ -287,6 +287,6 @@ pub fn update_orbit_system(
 
 ## 11. Project Philosophy
 
-* Hollow Orbit’s antagonist is entropy itself.
+* Drift’s antagonist is entropy itself.
 * No combat; focus on decay and survival.
 * Every mechanic reinforces fragility, isolation, and impermanence.

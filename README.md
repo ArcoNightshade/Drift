@@ -1,8 +1,8 @@
-Hollow Orbit: A Melancholic Sci-Fi Survival Game
+Drift: A Melancholic Sci-Fi Survival Game
 
     You are holding a dying orbit together, knowing it won’t last forever.
 
-Hollow Orbit is a quiet, atmospheric survival game about isolation, maintenance, and the inescapable truth of decay. You play as a lone traveler in the cold vacuum, tending to the fragile remains of a collapsed orbital system. Gravity and time are your constant enemies.
+Drift is a quiet, atmospheric survival game about isolation, maintenance, and the inescapable truth of decay. You play as a lone traveler in the cold vacuum, tending to the fragile remains of a collapsed orbital system. Gravity and time are your constant enemies.
 
 Core Concept
 
