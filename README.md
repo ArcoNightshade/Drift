@@ -6,7 +6,7 @@ Drift is a quiet, atmospheric survival game about isolation, maintenance, and th
 
 Core Concept
 
-The game embraces a melancholic sci-fi tone, focusing on heavy atmosphere and minimal dialogue. Every action—from patching a hull to launching a probe—is deliberate, reflecting the high stakes of maintaining life in a dying machine.
+The game embraces a melancholic sci-fi tone, focusing on heavy atmosphere and minimal dialogue. Every action, from patching a hull to launching a probe, is deliberate, reflecting the high stakes of maintaining life in a dying machine.
 
 The Gameplay Loop
 
