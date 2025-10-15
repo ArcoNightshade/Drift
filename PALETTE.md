@@ -2,7 +2,7 @@
 
 ### Neutrals & Grays (Base Tones)
 
-    **Darkest to Light Gray:**
+    Darkest to Light Gray:
         #211d25
 
         #413d42
@@ -17,7 +17,7 @@
 
         #ffffff (Pure White)
 
-    **Warm Grays & Earth Tones:**
+    Warm Grays & Earth Tones:
 
         #3c3c3c (Dark Neutral Gray)
 
@@ -31,7 +31,7 @@
 
 ### Browns & Off-Whites (Habitat/Structure Tones)
 
-    **Deep to Light Browns:**
+    Browns & Off-Whites:
 
         #635d5a (Deep Brown)
 
@@ -43,7 +43,7 @@
 
         #eadedf (Cream/Off-White)
 
-    **Reds & Dark Earths:**
+    Reds & Dark Earths:
 
         #944940 (Dark Red-Brown)
 
@@ -59,7 +59,7 @@
 
 ### Accents: Warm & Bright
 
-    **Reds, Oranges & Yellows (High Alert/Energy):**
+    Reds, Oranges & Yellows:
 
         #643747 (Deep Maroon)
 
@@ -89,7 +89,7 @@
 
 ### Accents: Cool & Deep
 
-    **Blues & Teals (Cold/Space/Water):**
+    Blues & Teals (Cold/Space/Water):
 
         #2a3b4a (Very Dark Blue)
 
@@ -109,7 +109,7 @@
 
         #5d558f (Medium Indigo)
 
-    **Pinks, Violets & Purples:**
+    Pinks, Violets & Purples:
 
         #4c3d57 (Dark Purple)
 
@@ -135,7 +135,7 @@
 
         #facafb (Pale Lilac)
 
-    **Greens (Life/System Status):**
+    Greens (Life/System Status):
 
         #333f29 (Moss Green)
 
