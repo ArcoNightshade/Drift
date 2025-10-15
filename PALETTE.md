@@ -3,11 +3,12 @@
 ### Neutrals & Grays (Base Tones)
 
     Darkest to Light Gray:
-        #211d25
 
-        #413d42
+        #211d25 (Deep Void)
 
-        #5c5b63
+        #413d42 (Dark Hull)
+
+        #5c5b63 (Shadow Gray)
 
         #7c808b (Slate Gray)
 
