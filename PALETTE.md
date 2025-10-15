@@ -1,6 +1,6 @@
 # Hollow Orbit Color Palette
 
-### I. Neutrals & Grays (Base Tones)
+### Neutrals & Grays (Base Tones)
 
     **Darkest to Light Gray:**
         #211d25
@@ -29,7 +29,7 @@
 
         #dcded1 (Very Light Warm Gray)
 
-### II. Browns & Off-Whites (Habitat/Structure Tones)
+### Browns & Off-Whites (Habitat/Structure Tones)
 
     **Deep to Light Browns:**
 
@@ -57,7 +57,7 @@
 
         #b66a4d (Deep Rust)
 
-### III. Accents: Warm & Bright
+### Accents: Warm & Bright
 
     **Reds, Oranges & Yellows (High Alert/Energy):**
 
@@ -87,7 +87,7 @@
 
         #de9463 (Orange-Brown)
 
-### IV. Accents: Cool & Deep
+### Accents: Cool & Deep
 
     **Blues & Teals (Cold/Space/Water):**
 
