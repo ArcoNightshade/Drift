@@ -281,8 +281,6 @@ pub fn update_orbit_system(
 
 **Documentation**
 
-* DEV_NOTES.md for architecture decisions.
-* CHANGELOG.md for milestone tracking.
 * Semantic versioning: `v0.x`, `v1.x`.
 
 ---
