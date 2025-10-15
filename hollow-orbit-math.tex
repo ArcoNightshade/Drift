@@ -4,16 +4,18 @@
 \usepackage{geometry}
 \geometry{a4paper, margin=1in}
 
-% --- Fancier Packages ---
+% --- Fancier Formatting Packages ---
 \usepackage{xcolor}
-\definecolor{DeepVoid}{HTML}{2A3B4A} % Using a dark blue from the palette
-\usepackage{tikz}
+% Define colors based on your palette (Deep Void and a Slate Gray)
+\definecolor{DeepVoid}{HTML}{2A3B4A}
+\definecolor{SlateGray}{HTML}{7C808B}
 \usepackage[most]{tcolorbox}
 \usepackage{titlesec}
+\usepackage{wasysym} % For special symbols like 'sun'
 
 % Customize Section Headings
 \titleformat{\section}[block]{\centering\huge\bfseries\color{DeepVoid}\tcbline}{}{1em}{}
-\titleformat{\subsection}[runin]{\large\bfseries\color{SlateGray}}{}{0pt}{}
+\titleformat{\subsection}[runin]{\Large\bfseries\color{SlateGray}}{}{0pt}{}
 \titleformat{\subsubsection}[hang]{\bfseries\color{DeepVoid}}{}{1em}{}
 \titlespacing*{\section}{0pt}{2ex}{1ex}
 \titlespacing*{\subsection}{0pt}{1.5ex}{1ex}
@@ -40,11 +42,11 @@
 }{
     \end{tcolorbox}
 }
-% --- End Fancier Packages ---
+% --- End Fancier Formatting Packages ---
 
-\title{\color{DeepVoid}\textbf{Hollow Orbit: Survival Mechanics}}
+\title{\color{DeepVoid}\textbf{Hollow Orbit: Advanced Survival Mechanics}}
 \author{\large Mathematical Core Documentation}
-\date{}
+\date{Version 2.0}
 
 \begin{document}
 \maketitle
@@ -52,85 +54,110 @@
 
 \section*{Orbital Decay and System Mechanics}
 
-The core survival gameplay of \textbf{Hollow Orbit} is driven by a set of simplified, deterministic equations that model the gradual, inevitable decay of the orbital habitats.
+The core survival loop is modeled using deterministic equations that quantify the inevitable collapse of the habitat's orbit, compounded by component failure and resource scarcity. The model is designed to create a sense of mounting dread and irreversible decline.
 
 \subsection{The Core Decay Metric: Orbital Integrity ($I$)}\hspace{0.5em}
 
-The habitat's stability is tracked by the Orbital Integrity ($I$). If $I \le 0$, the orbit fails. The change in Integrity over time ($\frac{dI}{dt}$) is the sum of various decay rates:
+Orbital Integrity ($I$) represents the habitat's overall stability. The rate of loss ($\frac{dI}{dt}$) is a function of base decay, environmental drag, system instability, and crucially, power sufficiency.
 
-\begin{mathbox}
+\begin{mathbox}[\color{DeepVoid}Orbital Integrity Loss Rate]
 $$
-\frac{dI}{dt} = - (R_{\text{Base}} + R_{\text{Drag}} + R_{\text{Instability}})
+\frac{dI}{dt} = - (R_{\text{Base}} + R_{\text{Drag}} + R_{\text{Instability}}) \cdot \Phi_{\text{Power}}
 $$
 \end{mathbox}
 
 \begin{itemize}
-    \item $I$: \textbf{Orbital Integrity} (0--100). The primary survival metric.
-    \item $R_{\text{Base}}$: \textbf{Inherent Decay Rate} (constant set per orbit).
-    \item $R_{\text{Drag}}$: \textbf{Atmospheric Drag Rate} (variable, influenced by hull health).
-    \item $R_{\text{Instability}}$: \textbf{System Instability Rate} (variable, influenced by broken components).
+    \item $I$: \textbf{Orbital Integrity} (0--100). When $I \le 0$, the orbit is lost.
+    \item $R_{\text{Base}}$: \textbf{Inherent Decay Rate}. The constant, unavoidable rate of decline specific to the current orbit.
+    \item $\Phi_{\text{Power}}$: \textbf{Power Sufficiency Multiplier}. If global available Power ($P$) drops below a critical threshold ($P_{\text{Crit}}$), essential gyroscopes and sensors fail, forcing $\Phi_{\text{Power}} > 1$ and exponentially accelerating $I$ decay.
 \end{itemize}
 
 \vspace{1em}
-\subsection{Variable Decay Rates (Player Agency)}\hspace{0.5em}
+\subsection{Compounding Decay Rates}\hspace{0.5em}
 
 \subsubsection{Atmospheric Drag ($R_{\text{Drag}}$)}
-Drag increases non-linearly as the \textbf{Hull System Integrity ($H_{\text{System}}$)} drops below a threshold (e.g., 50), simulating a descent into denser atmosphere.
+Drag is a dynamic threat, increasing as the habitat's \textbf{Orbital Altitude ($A$)} drops, which is itself poorly maintained by a damaged Hull System ($H_{\text{System}}$).
 
-\begin{mathbox}
+\begin{mathbox}[\color{DeepVoid}Atmospheric Drag Penalty]
 $$
-\text{If } H_{\text{System}} \le 50: \quad R_{\text{Drag}} = \alpha \cdot \left(1 - \frac{H_{\text{System}}}{100}\right)^2
+R_{\text{Drag}} = \alpha \cdot \left(1 - \frac{H_{\text{System}}}{100}\right)^2 \cdot \frac{1}{\min(1, A/A_{\text{Threshold}})}
 $$
 \end{mathbox}
 
 \begin{itemize}
-    \item $H_{\text{System}}$: Hull System Integrity (0--100).
-    \item $\alpha$: Drag Constant (A difficulty scaling factor).
+    \item $A$: \textbf{Current Orbital Altitude}. Altitude degrades independently if thruster maintenance is neglected.
+    \item $H_{\text{System}}$: Hull and Maintenance System Integrity (0--100).
+    \item The $\frac{1}{\min(\dots)}$ factor ensures that if $A$ drops close to the $A_{\text{Threshold}}$ (atmospheric boundary), the drag penalty spikes dramatically, creating a rapid descent failure state.
 \end{itemize}
 
 \subsubsection{System Instability ($R_{\text{Instability}}$)}
-Instability is a direct penalty based on the failure of critical internal systems, represented by the sum of penalties from failed components.
+Instability is the accumulated penalty from the current failure state of critical internal components (e.g., CPU, Gyroscope).
 
-\begin{mathbox}
+\begin{mathbox}[\color{DeepVoid}Total Instability Rate]
 $$
 R_{\text{Instability}} = \sum_{n=1}^N W_n \cdot B_n
 $$
 \end{mathbox}
 
 \begin{itemize}
-    \item $N$: Total number of critical components.
-    \item $W_n$: Component Weight/Criticality (fixed value for component $n$).
-    \item $B_n$: Broken State Multiplier (binary: $B_n=1$ if Component Integrity $\le 0$; $B_n=0$ otherwise).
+    \item $W_n$: \textbf{Component Weight/Criticality}. A higher weight indicates a more vital component (e.g., $W_{\text{Gyro}} > W_{\text{Lights}}$).
+    \item $B_n$: \textbf{Broken State Multiplier}. $B_n=1$ if Component Integrity $\le 0$; $B_n=0$ otherwise.
+    \item \textbf{Probabilistic Failure}: Component failure is not always deterministic. At every tick, each component has a small chance ($\lambda_n$) of suffering a catastrophic failure (Integrity $\to 0$).
+    $$
+    \lambda_n = C_{\text{Failure}} \cdot \frac{R_{\text{Base}} \cdot \text{Age}_n}{\text{Max } H_{n}}
+    $$
+    This models the effect of age ($\text{Age}_n$) and the inherently high stress of the current orbit ($R_{\text{Base}}$) on fragile hardware.
 \end{itemize}
 
 \vspace{1em}
-\subsection{Player Actions and Resource Consumption}\hspace{0.5em}
+\subsection{Player Actions and Resource Management}\hspace{0.5em}
 
-\subsubsection{Repair Action (Increasing Component Integrity)}
-The repair action increases a specific component's integrity ($\Delta H_{\text{System}}$) by consuming both Power ($P$) and Resources ($R_{es}$).
+\subsubsection{Repair Action (Component Integrity Gain)}
+Repair efficiency is penalized by the severity of the current orbit, meaning resources go less far in later stages of the game.
 
-\begin{mathbox}
+\begin{mathbox}[\color{DeepVoid}Repair Efficiency]
 $$
-\Delta H_{\text{System}} = \frac{\beta \cdot P_{\text{Consumed}} \cdot R_{\text{es}_{\text{Consumed}}}}{\text{Max } H_{\text{System}}}
+\Delta H_{\text{System}} = \frac{\beta \cdot P_{\text{Consumed}} \cdot R_{\text{es}_{\text{Consumed}}}}{\text{Max } H_{\text{System}}} \cdot \frac{1}{1 + \delta \cdot R_{\text{Base}}}
 $$
 \end{mathbox}
 
 \begin{itemize}
-    \item $\beta$: Repair Efficiency constant.
-    \item $P_{\text{Consumed}}$, $R_{\text{es}_{\text{Consumed}}}$: Consumed amounts of Power and Resources per tick.
+    \item $\beta$: \textbf{Repair Efficiency Constant}. A baseline measure of tool effectiveness.
+    \item $\frac{1}{1 + \delta \cdot R_{\text{Base}}}$: \textbf{Difficulty Multiplier}. As the base decay rate increases ($\delta \cdot R_{\text{Base}}$ grows), the repair yield drops, ensuring the player faces an ever-increasing maintenance burden.
 \end{itemize}
 
-\subsubsection{Orbit Transfer Difficulty Progression}
-The difficulty increases with each new habitat, reinforcing the narrative of inevitable decay. The new orbit's inherent decay rate ($\hat{R}_{\text{Base}}$) is guaranteed to be worse.
+\subsubsection{Orbital Correction (Emergency Burn)}
+The high-cost, high-risk maneuver to temporarily regain altitude by consuming Fuel ($F$). Its effectiveness is dependent on the health of the propulsion system.
 
-\begin{mathbox}
+\begin{mathbox}[\color{DeepVoid}Altitude Correction Gain]
+$$
+\Delta A = \eta \cdot F_{\text{Consumed}} \cdot \min\left(1, \frac{H_{\text{Thruster}}}{100}\right)
+$$
+\end{mathbox}
+
+\begin{itemize}
+    \item $\eta$: \textbf{Fuel Efficiency Constant}.
+    \item $H_{\text{Thruster}}$: Integrity of the specific thruster component. A damaged thruster results in wasted fuel and lower $\Delta A$, adding uncertainty to emergency burns.
+\end{itemize}
+
+\vspace{1em}
+\subsection{Orbit Transfer and Game Progression}\hspace{0.5em}
+
+Upon transferring to a new habitat, the game progresses to an inherently more challenging state, ensuring the player is constantly fighting an uphill battle.
+
+\begin{mathbox}[\color{DeepVoid}Next Orbit Difficulty Scaling]
 $$
 \hat{R}_{\text{Base}} = R_{\text{Base}_{\text{Previous}}} + \gamma
 $$
+$$
+\hat{A}_{\text{Initial}} = A_{\text{Initial}_{\text{Previous}}} - \kappa
+$$
 \end{mathbox}
 
 \begin{itemize}
-    \item $\gamma$: Decay Escalation Constant (A fixed positive value for difficulty increase).
+    \item $\hat{R}_{\text{Base}}$: The new, higher inherent decay rate ($\gamma > 0$ is the constant increase).
+    \item $\hat{A}_{\text{Initial}}$: The starting altitude of the new orbit is lower ($\kappa > 0$ is the constant reduction), guaranteeing a severe initial drag challenge.
+    \item This mechanism reinforces the core narrative: each sanctuary is merely a temporary reprieve before a worse challenge.
 \end{itemize}
 
 \end{document}
