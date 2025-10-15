@@ -63,6 +63,7 @@
 
 **Features**
 
+* Asset folder embedded in binary using `rust-embed` crate.
 * Implement player movement in microgravity (thrust, drift, inertia).
 * Create a simple orbital station with collision.
 * Display an energy meter and basic HUD.
@@ -204,7 +205,7 @@ hollow_orbit/
 
 **Art Style**
 
-* Minimalist pixel art (1-bit or 4-color palette).
+* Minimalist pixel art (64-color palette, see PALETTE.md for hex values).
 * Depth defined by light and shadow.
 
 **Sound Design**
