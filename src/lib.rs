@@ -1,5 +1,7 @@
 // Importing bevy & friends
+use crate::states::AppState;
 use bevy::prelude::*;
+use bevy::state::app::AppExtStates;
 use rust_embed::RustEmbed;
 use tracing_subscriber::{EnvFilter, fmt};
 
@@ -23,7 +25,7 @@ impl DriftGame {
 
         let mut app = App::new();
 
-        app.insert_resource(ClearColor(Color::rgb(0.05.0.050.07)))
+        app.insert_resource(ClearColor(Color::srgb(0.05, 0.05, 0.07)))
             .add_plugins(DefaultPlugins.set(WindowPlugin {
                 primary_window: Some(Window {
                     title: "Drift".into(),
@@ -33,7 +35,7 @@ impl DriftGame {
                 }),
                 ..default()
             }))
-            .add_state::<states::app_state::AppState>()
+            .add_state::<AppState>()
             .add_systems(Startup, systems::setup_camera)
             .run()
     }

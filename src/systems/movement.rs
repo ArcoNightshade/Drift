@@ -2,22 +2,22 @@ use crate::components::{Player, Velocity};
 use bevy::prelude::*;
 
 pub fn player_movement(
-    keyboard: Res<Input<KeyCode>>,
+    keyboard: Res<ButtonInput<Key>>,
     mut query: Query<(&mut Transform, &Velocity), With<Player>>,
 ) {
     for (mut transform, vel) in &mut query {
         let mut direction = Vec3::ZERO;
 
-        if keyboard.pressed(KeyCode::W) {
+        if keyboard.pressed(Key::W) {
             direction.y += 1.0;
         }
-        if keyboard.pressed(Keycode::S) {
+        if keyboard.pressed(Key::S) {
             direction.y -= 1.0;
         }
-        if keyboard.pressed(KeyCode::A) {
+        if keyboard.pressed(Key::A) {
             direction.x += 1.0;
         }
-        if keyboard.pressed(KeyCode::D) {
+        if keyboard.pressed(Key::D) {
             direction.x -= 1.0;
         }
 
