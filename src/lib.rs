@@ -35,7 +35,7 @@ impl DriftGame {
                 }),
                 ..default()
             }))
-            .add_state::<AppState>()
+            .add_message::<AppState>()
             .add_systems(Startup, systems::setup_camera)
             .run()
     }

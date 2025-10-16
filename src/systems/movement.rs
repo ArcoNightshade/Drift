@@ -1,7 +1,7 @@
 use crate::components::{Player, Velocity};
 use bevy::prelude::*;
 
-pub fn player_movement(
+pub fn player_movement<Key>(
     keyboard: Res<ButtonInput<Key>>,
     mut query: Query<(&mut Transform, &Velocity), With<Player>>,
 ) {
