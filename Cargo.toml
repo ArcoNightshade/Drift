@@ -2,5 +2,51 @@
 name = "drift"
 version = "0.1.0"
 edition = "2024"
+authors = ["Lyon A <paradoxzss07@raptorbytes.org"]
+description = "A 2D exploration game built in Rust with Bevy. Coded minimalism, 64-color art, embedded assets."
+license = "MIT"
+repository = "https://github.com/ArcoNightshade/Drift"
+readme = "README.md"
+keywords = ["game", "2d", "exploration", "rust", "bevy"]
+categories = ["games", "graphics"]
+default-run = "drift"
+
+[workspace]
+members = ["."]
+resolver = "2"
 
 [dependencies]
+bevy = { version = "0.17.2", default-features = false, features = [
+    "bevy_winit",        # window/input handling (was bevy_window + bevy_input)
+    "bevy_render",       # renderer core
+    "bevy_core_pipeline",# 2D/3D pipelines
+    "bevy_sprite",       # 2D rendering
+    "bevy_text",         # UI text
+    "bevy_ui",           # UI system
+    "png",               # image decoding
+    "x11",               # X11 support
+    "wayland",           # Wayland support
+] }
+
+rust-embed = "8.7.2"
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.20", features = ["env-filter", "fmt"] }
+
+serde = { version = "1.0.228", features = ["derive"] }
+ron = "0.11.0"
+anyhow = "1.0.100"
+
+[profile.dev]
+opt-level = 2
+debug = true
+overflow-checks = true
+lto = true
+panic = "unwind"
+
+[profile.release]
+opt-level = "z"
+lto = "fat"
+strip = true
+codegen-units = 1
+debug = false
+panic = "abort"

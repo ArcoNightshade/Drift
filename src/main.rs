@@ -1,3 +1,7 @@
+// Importing DriftGame from lib.rs
+use drift::DriftGame;
+
 fn main() {
-    println!("PLACEHOLDER FOR ACTUAL GAME N STUFF!");
+    // Running DriftGame from lib.rs
+    DriftGame::run();
 }
