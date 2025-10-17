@@ -1,7 +1,5 @@
-// Importing DriftGame from lib.rs
-use drift::DriftGame;
+use drift::run;
 
 fn main() {
-    // Running DriftGame from lib.rs
-    DriftGame::run();
+    run();
 }

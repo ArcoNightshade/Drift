@@ -28,6 +28,7 @@ bevy = { version = "0.17.2", default-features = false, features = [
     "wayland",           # Wayland support
 ] }
 
+bevy_state = "0.17.2"
 rust-embed = "8.7.2"
 tracing = "0.1.41"
 tracing-subscriber = { version = "0.3.20", features = ["env-filter", "fmt"] }

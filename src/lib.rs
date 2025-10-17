@@ -1,51 +1,36 @@
-// Importing bevy & friends
-use crate::states::AppState;
-use bevy::prelude::*;
-use bevy::state::app::AppExtStates;
-use rust_embed::RustEmbed;
-use tracing_subscriber::{EnvFilter, fmt};
-
-// Making components public
 pub mod components;
-pub mod resources;
-pub mod states;
 pub mod systems;
+pub mod states;
+pub mod assets;
 
-// Handling asset embed into binary
-#[derive(RustEmbed)]
-#[folder = "assets/"]
-pub struct DriftAssets;
+use bevy::prelude::*;
+use components::{Player, Velocity};
+use assets::load_embedded_texture;
 
-pub struct DriftGame;
+pub fn setup(mut commands: Commands, mut images: ResMut<Assets<Image>>) {
+    commands.spawn(Camera2dBundle::default());
 
-// Making a basic window
-impl DriftGame {
-    pub fn run() -> AppExit {
-        init_tracing();
+    // Load the embedded player sprite
+    let texture_handle = load_embedded_texture("player.png", images);
 
-        let mut app = App::new();
-
-        app.insert_resource(ClearColor(Color::srgb(0.05, 0.05, 0.07)))
-            .add_plugins(DefaultPlugins.set(WindowPlugin {
-                primary_window: Some(Window {
-                    title: "Drift".into(),
-                    resolution: (960.0, 540.0).into(),
-                    resizable: true,
-                    ..default()
-                }),
+    commands.spawn((
+        SpriteBundle {
+            texture: texture_handle,
+            transform: Transform::from_xyz(0.0, 0.0, 0.0),
+            sprite: Sprite {
+                custom_size: Some(Vec2::new(32.0, 32.0)),
                 ..default()
-            }))
-            .add_message::<AppState>()
-            .add_systems(Startup, systems::setup_camera)
-            .run()
-    }
+            },
+            ..default()
+        },
+        Player,
+        Velocity { x: 1.0, y: 1.0 },
+    ));
 }
 
-fn init_tracing() {
-    let filter = EnvFilter::from_default_env()
-        .add_directive("wgpu=warn".parse().unwrap())
-        .add_directive("bevy_render=warn".parse().unwrap())
-        .add_directive("drift=info".parse().unwrap());
-
-    fmt().with_env_filter(filter).init();
+pub fn run() {
+    App::new()
+        .add_plugins(DefaultPlugins)
+        .add_systems(Startup, setup)
+        .run();
 }

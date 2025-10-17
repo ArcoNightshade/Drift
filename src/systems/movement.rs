@@ -1,26 +1,9 @@
-use crate::components::{Player, Velocity};
 use bevy::prelude::*;
+use crate::components::{Player, Velocity};
 
-pub fn player_movement<Key>(
-    keyboard: Res<ButtonInput<Key>>,
-    mut query: Query<(&mut Transform, &Velocity), With<Player>>,
-) {
-    for (mut transform, vel) in &mut query {
-        let mut direction = Vec3::ZERO;
-
-        if keyboard.pressed(Key::W) {
-            direction.y += 1.0;
-        }
-        if keyboard.pressed(Key::S) {
-            direction.y -= 1.0;
-        }
-        if keyboard.pressed(Key::A) {
-            direction.x += 1.0;
-        }
-        if keyboard.pressed(Key::D) {
-            direction.x -= 1.0;
-        }
-
-        transform.translation += direction.normalize_or_zero() * 100.0 * vel.x;
+pub fn movement_system(mut query: Query<(&Velocity, &mut Transform), With<Player>>) {
+    for (vel, mut transform) in &mut query {
+        transform.translation.x += vel.x;
+        transform.translation.y += vel.y;
     }
 }
