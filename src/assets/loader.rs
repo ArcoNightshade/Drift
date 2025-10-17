@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use bevy::render::texture::Image;
+use bevy::render::texture::{ImageSamplerDescriptor, ImageType};
 use rust_embed::RustEmbed;
 
 #[derive(RustEmbed)]
@@ -10,16 +10,14 @@ pub fn load_embedded_texture(
     path: &str,
     mut images: ResMut<Assets<Image>>,
 ) -> Handle<Image> {
-    let bytes = EmbeddedAssets::get(path)
-        .unwrap_or_else(|| panic!("Missing embedded asset: {}", path));
-
+    let bytes = EmbeddedAssets::get(path).expect("Failed to load embedded asset");
     let image = Image::from_buffer(
         &bytes.data,
         ImageType::Extension("png"),
-        bevy::render::texture::ImageSampler::nearest(),
+        ImageSamplerDescriptor::nearest(),
         true,
-    )
-    .expect("Failed to decode embedded PNG");
-
+        ImageSamplerDescriptor::nearest(),
+        bevy::render::render_asset::RenderAssetUsages::all(),
+    ).expect("Failed to decode embedded image");
     images.add(image)
 }

@@ -1,36 +1,28 @@
-pub mod components;
-pub mod systems;
-pub mod states;
-pub mod assets;
-
 use bevy::prelude::*;
-use components::{Player, Velocity};
-use assets::load_embedded_texture;
+use bevy::render::camera::Camera2dBundle;
 
-pub fn setup(mut commands: Commands, mut images: ResMut<Assets<Image>>) {
-    commands.spawn(Camera2dBundle::default());
+pub mod assets;
+pub mod states;
 
-    // Load the embedded player sprite
-    let texture_handle = load_embedded_texture("player.png", images);
-
-    commands.spawn((
-        SpriteBundle {
-            texture: texture_handle,
-            transform: Transform::from_xyz(0.0, 0.0, 0.0),
-            sprite: Sprite {
-                custom_size: Some(Vec2::new(32.0, 32.0)),
-                ..default()
-            },
-            ..default()
-        },
-        Player,
-        Velocity { x: 1.0, y: 1.0 },
-    ));
-}
+use assets::manager::load_game_assets;
+use states::app_state::AppState;
 
 pub fn run() {
     App::new()
-        .add_plugins(DefaultPlugins)
-        .add_systems(Startup, setup)
+        .insert_resource(ClearColor(Color::srgb(0.05, 0.05, 0.07)))
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "Drift".into(),
+                resolution: (960.0, 540.0).into(),
+                ..default()
+            }),
+            ..default()
+        }))
+        .add_state::<AppState>()
+        .add_systems(Startup, (setup_camera, load_game_assets))
         .run();
+}
+
+fn setup_camera(mut commands: Commands) {
+    commands.spawn(Camera2dBundle::default());
 }
